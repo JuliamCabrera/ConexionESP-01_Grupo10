@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>DS18B20 Sensor</title>
+</head>
+<body>
+    <header>
+        <h1>DS18B20 Sensor</h1>
+    </header>
+    <main>
+        <section class="sensor-info">
+            
+            <div class="temperature-display">
+                <h2>Información del Sensor</h2>
+                <div class="thermometer">
+                    <div class="mercury" id="temperature-mercury"></div>
+                </div>
+                <div class="temperature-text">
+                    <p>Temperatura Actual: <span id="temperature-value">0°C</span></p>
+                </div>
+                <div class="temperature-control">
+                <input type="number" id="temperature-input" min="-40" max="80" step="2" value="0">
+            </div>
+            </div>
+            
+            <section class="temperature-chart">
+                <h2>Gráfica de Temperatura en el Tiempo</h2>
+                <canvas id="temperature-chart" width="1000" height="490"></canvas>
+            </section>
+        </section>
+        
+    </main>
+    <footer>
+        <p>Breve explicación del sensor DS18B20...</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
