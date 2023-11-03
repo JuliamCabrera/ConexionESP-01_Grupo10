@@ -48,8 +48,7 @@ void loop() {
 
 boolean EnviarComando(String cmd, String ack) {
     mySerial.println(cmd); // Envía el comando "AT+" al módulo
-    if (!buscarRespuesta(ack)) // Tiempo de espera agotado esperando la cadena de confirmación (ack)
-        return true; // La cadena de confirmación está en blanco o se encontró la cadena de confirmación
+    return buscarRespuesta(ack);
 }
 
 boolean buscarRespuesta(String keyword) {
@@ -60,11 +59,12 @@ boolean buscarRespuesta(String keyword) {
         if (mySerial.available()) {
             char ch = mySerial.read();
             Serial.write(ch);
-            if (ch == keyword[current_char])
+            if (ch == keyword[current_char]) {
                 if (++current_char == keyword_length) {
                     Serial.println();
                     return true;
                 }
+            }
         }
     }
     return false; // Tiempo de espera agotado
