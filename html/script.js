@@ -10,11 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const mqttClient = mqtt.connect('ws://10.0.3.201:1883');
 
     mqttClient.on('connect', function () {
-        // Suscríbete al tema MQTT correspondiente
-        mqttClient.subscribe('temperatura');
+        mqttClient.subscribe('Temp');
 
         mqttClient.on('message', function (topic, message) {
-            // Recibe el valor MQTT y actualiza la temperatura en la página
             const value = parseFloat(message);
             updateTemperature(value);
         });
