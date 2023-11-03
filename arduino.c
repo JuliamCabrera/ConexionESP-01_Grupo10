@@ -1,5 +1,12 @@
 #include <SoftwareSerial.h>
 #include <LiquidCrystal.h>
+#include <PubSubClient.h>
+
+const char* mqttServer = "10.0.3.201";
+const int mqttPort = 1883;
+
+WiFiClient espClient;
+PubSubClient client(espClient);
 
 #define TIMEOUT 5000 // mS
 SoftwareSerial mySerial(7, 6); // RX, TX
@@ -19,6 +26,7 @@ void setup() {
     EnviarComando("AT+CIPSERVER=1,80", "OK"); // Inicia un servidor web en el puerto 80
     lcd.begin(16, 2);
     lcd.clear();
+    client.setServer(mqttServer, mqttPort);
 }
 
 void loop() {
@@ -43,6 +51,10 @@ void loop() {
         Serial.println("Cadena recibida: " + IncomingString);
         lcd.setCursor(0, 0);
         lcd.print(IncomingString);
+        if (client.connect("ArduinoClient")) 
+        {
+            client.publish("Temp", IncomingString.c_str());
+        }
     }
 }
 

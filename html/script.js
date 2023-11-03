@@ -7,6 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
     let temperatureData = [];
     let chart;
 
+    const mqttClient = mqtt.connect('ws://10.0.3.201:1883');
+
+    mqttClient.on('connect', function () {
+        // Suscríbete al tema MQTT correspondiente
+        mqttClient.subscribe('temperatura');
+
+        mqttClient.on('message', function (topic, message) {
+            // Recibe el valor MQTT y actualiza la temperatura en la página
+            const value = parseFloat(message);
+            updateTemperature(value);
+        });
+    });
+    
     temperatureInput.addEventListener("input", function () {
         const inputValue = parseFloat(temperatureInput.value);
         updateTemperature(inputValue);
